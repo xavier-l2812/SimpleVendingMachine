@@ -16,8 +16,4 @@
     <ProjectReference Include="..\SimpleVendingMachine.Models\SimpleVendingMachine.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\" />
-  </ItemGroup>
-
 </Project>
