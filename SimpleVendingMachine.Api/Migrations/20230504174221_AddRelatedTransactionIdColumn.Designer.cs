@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleVendingMachine.Api.Data;
 
@@ -11,9 +12,11 @@ using SimpleVendingMachine.Api.Data;
 namespace SimpleVendingMachine.Api.Migrations
 {
     [DbContext(typeof(VendingMachineDbContext))]
-    partial class VendingMachineDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504174221_AddRelatedTransactionIdColumn")]
+    partial class AddRelatedTransactionIdColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,17 +156,14 @@ namespace SimpleVendingMachine.Api.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("RelatedTransactionId")
                         .HasColumnType("bigint");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TotalQuantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("TransactionTypeId")
                         .HasColumnType("int");
@@ -195,8 +195,6 @@ namespace SimpleVendingMachine.Api.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("TransactionDetails");
                 });
@@ -257,17 +255,6 @@ namespace SimpleVendingMachine.Api.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("TransactonType");
-                });
-
-            modelBuilder.Entity("SimpleVendingMachine.Api.Entities.TransactionDetail", b =>
-                {
-                    b.HasOne("SimpleVendingMachine.Api.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

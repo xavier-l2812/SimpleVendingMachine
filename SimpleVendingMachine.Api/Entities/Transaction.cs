@@ -6,9 +6,11 @@ namespace SimpleVendingMachine.Api.Entities
     {
         public long Id { get; set; }
         public DateTime CreatedAt { get; set; }
-        public decimal Amount { get; set; }
+        public decimal TotalPrice { get; set; }
+        public int TotalQuantity { get; set; }
         public int TransactionTypeId { get; set; }
         public int AccountId { get; set; }
+        public long? RelatedTransactionId { get; set; }
 
         [ForeignKey("TransactionTypeId")]
         public TransactonType TransactonType { get; set; }

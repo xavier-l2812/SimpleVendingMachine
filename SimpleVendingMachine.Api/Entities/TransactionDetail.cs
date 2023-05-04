@@ -8,5 +8,8 @@ namespace SimpleVendingMachine.Api.Entities
         public long TransactionId { get; set; }
         public int ProductId { get; set; }
         public int Qty { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; }
     }
 }
