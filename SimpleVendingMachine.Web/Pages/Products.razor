@@ -1,17 +1,17 @@
 ﻿@page "/"
 @inherits ProductsBase
 
-@if (StateContainerService.Products == null && ErrorMessage == null)
+@if (!StateContainerService.Products.Any() && string.IsNullOrWhiteSpace(ErrorMessage))
 {
     <DisplaySpinner />
 }
-else if (ErrorMessage != null)
+else if (!string.IsNullOrWhiteSpace(ErrorMessage))
 {
     <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
 }
 else
 {
-    <h3 class="mb-5">Products</h3>
+    <h3 class="mb-5">Beverage & Snacks</h3>
 
     var productCount = StateContainerService.Products.Count();
 

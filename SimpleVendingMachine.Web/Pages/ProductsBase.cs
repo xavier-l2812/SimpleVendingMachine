@@ -12,9 +12,6 @@ namespace SimpleVendingMachine.Web.Pages
         [Inject]
         public IStateContainerService StateContainerService { get; set; }
 
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
-
         public string ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()
