@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using SimpleVendingMachine.Models.Dtos;
 using SimpleVendingMachine.Web.Models;
+using SimpleVendingMachine.Web.Services;
 using SimpleVendingMachine.Web.Services.Contracts;
 
 namespace SimpleVendingMachine.Web.Pages
@@ -57,6 +58,8 @@ namespace SimpleVendingMachine.Web.Pages
             try
             {
                 TransanctionService.PostTransaction(transactionToAddDto);
+
+                StateContainerService.ClearCartItems();
 
                 NavigationManager.NavigateTo("/");
             }
