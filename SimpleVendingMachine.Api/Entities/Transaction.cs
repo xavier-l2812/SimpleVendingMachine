@@ -13,7 +13,7 @@ namespace SimpleVendingMachine.Api.Entities
         public long? RelatedTransactionId { get; set; }
 
         [ForeignKey("TransactionTypeId")]
-        public TransactonType TransactonType { get; set; }
+        public TransactionType TransactonType { get; set; }
 
         [ForeignKey("AccountId")]
         public Account Account { get; set; }

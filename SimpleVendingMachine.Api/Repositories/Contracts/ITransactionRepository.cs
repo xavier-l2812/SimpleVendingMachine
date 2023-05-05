@@ -8,5 +8,6 @@ namespace SimpleVendingMachine.Api.Repositories.Contracts
         Task<IEnumerable<Transaction>> GetTransactions(TransactionQuery transactionQuery = null);
         Task<IEnumerable<TransactionDetail>> GetTransactionDetails(long transactionId);
         Task<Transaction> PostTransaction(TransactionToAddDto postTransactionDto);
+        Task<Transaction> GetTransactionById (long transactionId);
     }
 }

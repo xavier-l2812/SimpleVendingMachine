@@ -68,7 +68,7 @@ namespace SimpleVendingMachine.Api.Repositories
             }
             // Check the transaction type
             var transactionTypeNotFound = !TransactionTypeExists(postTransactionDto.TransactionTypeId);
-            if (transactionTypeNotFound) 
+            if (transactionTypeNotFound)
             {
                 throw new TransactionTypeNotFoundException();
             }
@@ -84,7 +84,8 @@ namespace SimpleVendingMachine.Api.Repositories
             var existingAcct = GetAccount(postTransactionDto.Account);
             if (existingAcct == null)
             {
-                accountId = AddAccount(postTransactionDto.Account).Id;
+                var newAcct = await AddAccount(postTransactionDto.Account);
+                accountId = newAcct.Id;
             }
             else
             {
@@ -152,7 +153,7 @@ namespace SimpleVendingMachine.Api.Repositories
         public Account GetAccount(AccountDto accountDto)
         {
             var existingAccount = dbContext.Accounts
-                                  .Where(acct => acct.CardNumber == accountDto.CardNumber && 
+                                  .Where(acct => acct.CardNumber == accountDto.CardNumber &&
                                          acct.VerificationCode == accountDto.VerificationCode)
                                   .FirstOrDefault();
 
@@ -196,6 +197,16 @@ namespace SimpleVendingMachine.Api.Repositories
             var product = dbContext.Products.Find(productId);
 
             return product;
+        }
+
+        public async Task<Transaction> GetTransactionById(long transactionId)
+        {
+            var transaction = await dbContext.Transactions
+                                  .Include(t => t.Account)
+                                  .Include(t => t.TransactonType)
+                                  .SingleOrDefaultAsync(t => t.Id == transactionId);
+
+            return transaction;
         }
     }
 }

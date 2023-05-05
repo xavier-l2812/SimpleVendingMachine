@@ -15,6 +15,21 @@ namespace SimpleVendingMachine.Web.Services
         public List<ProductDto> Products { get; protected set; }
         public List<CartItemVM> CartItems { get; protected set; }
 
+        public decimal TotalPrice 
+        {
+            get
+            {
+                return CartItems.Sum(ci => ci.TotalPrice);
+            }
+        }
+        public int TotalQuantity 
+        {
+            get
+            {
+                return CartItems.Sum(p => p.Qty);
+            }
+        }
+
         public void SetProducts(IEnumerable<ProductDto> products)
         {
             Products = products.ToList();
@@ -33,8 +48,6 @@ namespace SimpleVendingMachine.Web.Services
             {
                 CartItems.Add(cartItem);
             }
-
-            NotifyCartItemsChanged();
         }
 
         public void RemoveCartItem(int productId)
@@ -44,14 +57,12 @@ namespace SimpleVendingMachine.Web.Services
             if (cartItemToRemove != null) 
             { 
                 CartItems.Remove(cartItemToRemove);
-                NotifyCartItemsChanged();
             }
         }
 
         public void ClearCartItems()
         {
             CartItems.Clear();
-            NotifyCartItemsChanged();
         }
 
         public void UpdateCartItemQty(int productId, int qty)
@@ -61,14 +72,11 @@ namespace SimpleVendingMachine.Web.Services
             if (cartItemToUpdate != null) 
             {
                 cartItemToUpdate.Qty = qty;
-                NotifyCartItemsChanged();
             }
         }
 
         public event Action OnProductsChange;
-        public event Action OnCartItemsChange;
 
         public void NotifyProductsChanged() => OnProductsChange?.Invoke();
-        public void NotifyCartItemsChanged() => OnCartItemsChange?.Invoke();
     }
 }

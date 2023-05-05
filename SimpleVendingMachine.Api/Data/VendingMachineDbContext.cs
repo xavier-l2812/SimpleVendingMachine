@@ -66,12 +66,12 @@ namespace SimpleVendingMachine.Api.Data
             });
 
             //Add Transaction Types
-            modelBuilder.Entity<TransactonType>().HasData(new TransactonType
+            modelBuilder.Entity<TransactionType>().HasData(new TransactionType
             {
                 Id = 1,
                 Name = "Purchase",
             });
-            modelBuilder.Entity<TransactonType>().HasData(new TransactonType
+            modelBuilder.Entity<TransactionType>().HasData(new TransactionType
             {
                 Id = 2,
                 Name = "Refund",
@@ -83,6 +83,6 @@ namespace SimpleVendingMachine.Api.Data
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionDetail> TransactionDetails { get; set; }
-        public DbSet<TransactonType> TransactonTypes { get; set; }
+        public DbSet<TransactionType> TransactonTypes { get; set; }
     }
 }

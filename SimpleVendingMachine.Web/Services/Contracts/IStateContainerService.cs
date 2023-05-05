@@ -10,10 +10,11 @@ namespace SimpleVendingMachine.Web.Services.Contracts
         public event Action OnProductsChange;
 
         public List<CartItemVM> CartItems { get; }
+        public decimal TotalPrice { get; }
+        public int TotalQuantity { get; }
         public void AddCartItems(CartItemVM cartItem);
         public void RemoveCartItem(int productId);
         public void ClearCartItems();
         public void UpdateCartItemQty(int productId, int qty);
-        public event Action OnCartItemsChange;
     }
 }

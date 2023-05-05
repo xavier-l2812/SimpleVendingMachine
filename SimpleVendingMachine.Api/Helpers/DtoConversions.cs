@@ -20,5 +20,22 @@ namespace SimpleVendingMachine.Api.Helpers
                         CategoryName = product.ProductCategory.Name
                     }).ToList();
         }
+
+        public static TransactionDto ConvertToDto(this Transaction transaction) 
+        {
+            return new TransactionDto
+            {
+                Id = transaction.Id,
+                CreatedAt = transaction.CreatedAt,
+                TotalPrice = transaction.TotalPrice,
+                TotalQuantity = transaction.TotalQuantity,
+                RelatedTransactionId = transaction.RelatedTransactionId,
+                AccountId = transaction.AccountId,
+                AccountName = transaction.Account?.Name,
+                CardNumber = transaction.Account?.CardNumber,
+                TransactionTypeId = transaction.TransactionTypeId,
+                TransactionTypeName = transaction.TransactonType?.Name
+            };
+        }
     }
 }
