@@ -17,6 +17,23 @@ namespace SimpleVendingMachine.Api.Controllers
             this.transactionRepository = transactionRepository;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TransactionDto>>> GetTransactions([FromQuery] TransactionQuery query)
+        {
+            try
+            {
+                var transactions = await transactionRepository.GetTransactions(query);
+
+                var transactionDtos = transactions.ConvertToDto();
+
+                return Ok(transactionDtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet("{id:long}")]
         public async Task<ActionResult<TransactionDto>> GetTransaction(long id)
         {

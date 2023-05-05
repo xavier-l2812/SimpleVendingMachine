@@ -1,0 +1,35 @@
+﻿@page "/Login"
+@inject NavigationManager NavigationManager
+
+<h3 class="mb-5">Login</h3>
+
+<div class="mb-5">
+    We should have a fully functioning login page along with the authentication/authorization.
+    Since the authentication/authorization is out of scope, this page is just a placeholder. Please input arbitrary username and password to get through.
+</div>
+
+<div class="form-group row mb-3">
+    <label for="username" class="col-md-2 col-form-label">Username:</label>
+    <div class="col-md-4">
+        <input type="text" class="form-control" id="username" @bind="@Username">
+    </div>
+</div>
+
+<div class="form-group row mb-5">
+    <label for="password" class="col-md-2 col-form-label">Password:</label>
+    <div class="col-md-4">
+        <input type="password" class="form-control" id="password" @bind="@Password">
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary" @onclick="SignIn">Submit</button>
+
+@code {
+    private string Username { get; set; }
+    private string Password { get; set; }
+
+    private void SignIn()
+    {
+        NavigationManager.NavigateTo("/Transactions");
+    }
+}

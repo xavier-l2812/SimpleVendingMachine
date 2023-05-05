@@ -1,0 +1,47 @@
+﻿@page "/Transactions"
+@inherits TransactionsBase
+
+@if (!Transactions.Any() && string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <DisplaySpinner />
+}
+else if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+}
+else
+{
+    <h3 class="mb-5">Transactions</h3>
+
+    <div class="row mb-5">
+        <p>Pagination has been implemented on the back-end. Currently, the front-end only displays the latest 20 records.</p>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Transaction Id</th>
+                <th>Created Datetime</th>
+                <th>Last 4 Digits of the Card</th>
+                <th>Cardholder Name</th>
+                <th>Total Price</th>
+                <th>Total Quantity</th>
+                <th>Transaction Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Transactions)
+            {
+                <tr>
+                    <td>@transaction.Id</td>
+                    <td>@transaction.CreatedAt.ToString("MM/dd/yyyy HH:mm")</td>
+                    <td>@transaction.CardNumber.Substring(@transaction.CardNumber.Length - 4)</td>
+                    <td>@transaction.AccountName</td>
+                    <td>@transaction.TotalPrice</td>
+                    <td>@transaction.TotalQuantity</td>
+                    <td>@transaction.TransactionTypeName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

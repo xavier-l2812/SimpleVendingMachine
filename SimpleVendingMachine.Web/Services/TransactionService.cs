@@ -1,6 +1,10 @@
-﻿using SimpleVendingMachine.Models.Dtos;
+﻿
+using Newtonsoft.Json;
+using SimpleVendingMachine.Models.Dtos;
 using SimpleVendingMachine.Web.Services.Contracts;
 using System.Net.Http.Json;
+using System.Security.Cryptography.X509Certificates;
+using System.Web;
 
 namespace SimpleVendingMachine.Web.Services
 {
@@ -13,9 +17,22 @@ namespace SimpleVendingMachine.Web.Services
             this.httpClient = httpClient;
         }
 
-        public Task<List<TransactionDto>> GetTransactions(TransactionQuery transactionQuery)
+        public async Task<List<TransactionDto>> GetTransactions(TransactionQuery transactionQuery)
         {
-            throw new NotImplementedException();
+            var queryString = objectToQueryString(transactionQuery);
+            var requestUri = $"api/Transaction?{queryString}";
+
+            var response = await httpClient.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<List<TransactionDto>>();
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status:{response.StatusCode}; Message: {errorMessage}");
+            }
         }
 
         public async Task<TransactionDto> PostTransaction(TransactionToAddDto transactionToAddDto)
@@ -35,6 +52,16 @@ namespace SimpleVendingMachine.Web.Services
                 var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception($"Http status:{response.StatusCode}; Message: {errorMessage}");
             }
+        }
+
+        private string objectToQueryString(object obj)
+        {
+            var jsonStr = JsonConvert.SerializeObject(obj);
+            var dict = JsonConvert.DeserializeObject<IDictionary<string, string>>(jsonStr);
+            var parameters = dict.Select(e => $"{HttpUtility.UrlEncode(e.Key)}={HttpUtility.UrlEncode(e.Value)}");
+            var queryStr = string.Join("&", parameters);
+
+            return queryStr;
         }
     }
 }

@@ -35,6 +35,7 @@ namespace SimpleVendingMachine.Api.Repositories
                 transactionList = await dbContext.Transactions
                                         .Include(t => t.Account)
                                         .Include(t => t.TransactonType)
+                                        .OrderByDescending(t => t.CreatedAt)
                                         .ToListAsync();
             }
             else
@@ -42,6 +43,7 @@ namespace SimpleVendingMachine.Api.Repositories
                 transactionList = await dbContext.Transactions
                                         .Include(t => t.Account)
                                         .Include(t => t.TransactonType)
+                                        .OrderByDescending(t => t.CreatedAt)
                                         .Skip(transactionQuery.Skip.HasValue ? transactionQuery.Skip.Value : 0)
                                         .Take(transactionQuery.Take)
                                         .ToListAsync();

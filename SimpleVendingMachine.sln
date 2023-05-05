@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleVendingMachine.Api", "SimpleVendingMachine.Api\SimpleVendingMachine.Api.csproj", "{1D9680FF-0FB3-4F88-B249-19BF4BA90658}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleVendingMachine.Web", "SimpleVendingMachine.Web\SimpleVendingMachine.Web.csproj", "{48CCE6F5-4944-41DA-89CF-659FFCDD04D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleVendingMachine.Web", "SimpleVendingMachine.Web\SimpleVendingMachine.Web.csproj", "{48CCE6F5-4944-41DA-89CF-659FFCDD04D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleVendingMachine.Models", "SimpleVendingMachine.Models\SimpleVendingMachine.Models.csproj", "{DEEEEEF8-909E-46D7-A4A7-A736A32E3887}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleVendingMachine.Models", "SimpleVendingMachine.Models\SimpleVendingMachine.Models.csproj", "{DEEEEEF8-909E-46D7-A4A7-A736A32E3887}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

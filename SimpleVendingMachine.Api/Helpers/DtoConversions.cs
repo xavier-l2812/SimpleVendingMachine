@@ -37,5 +37,23 @@ namespace SimpleVendingMachine.Api.Helpers
                 TransactionTypeName = transaction.TransactonType?.Name
             };
         }
+
+        public static IEnumerable<TransactionDto> ConvertToDto(this IEnumerable<Transaction> transactions)
+        {
+            return (from transaction in transactions
+                    select new TransactionDto
+                    {
+                        Id = transaction.Id,
+                        CreatedAt = transaction.CreatedAt,
+                        TotalPrice = transaction.TotalPrice,
+                        TotalQuantity = transaction.TotalQuantity,
+                        RelatedTransactionId = transaction.RelatedTransactionId,
+                        AccountId = transaction.AccountId,
+                        AccountName = transaction.Account?.Name,
+                        CardNumber = transaction.Account?.CardNumber,
+                        TransactionTypeId = transaction.TransactionTypeId,
+                        TransactionTypeName = transaction.TransactonType?.Name
+                    }).ToList();
+        }
     }
 }
