@@ -71,16 +71,16 @@ namespace SimpleVendingMachine.Web.Pages
                 Account = account,
                 TransactionDetailToAddDtos = transactionDetailToAddDtos,
                 RelatedTransactionId = SelectedTransaction.Id,
-                TotalPrice = StateContainerService.TotalPrice
+                TotalPrice = SelectedTransaction.TotalPrice
             };
 
             try
             {
                 TransanctionService.PostTransaction(transactionToAddDto);
 
-                StateContainerService.ClearCartItems();
+                StateContainerService.ClearSelectedTransaction();
 
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/Transactions");
             }
             catch (Exception ex)
             {

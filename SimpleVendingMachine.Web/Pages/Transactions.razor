@@ -28,6 +28,7 @@ else
                 <th>Total Price</th>
                 <th>Total Quantity</th>
                 <th>Transaction Type</th>
+                <th>Related Transaction Id</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,7 @@ else
                     <td>@transaction.TotalPrice</td>
                     <td>@transaction.TotalQuantity</td>
                     <td>@transaction.TransactionTypeName</td>
+                    <td>@(transaction.RelatedTransactionId.HasValue ? @transaction.RelatedTransactionId.Value : "")</td>
                 </tr>
             }
         </tbody>

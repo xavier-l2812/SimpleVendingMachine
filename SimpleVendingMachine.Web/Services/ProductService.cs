@@ -13,11 +13,6 @@ namespace SimpleVendingMachine.Web.Services
             this.httpClient = httpClient;
         }
 
-        public Task<ProductDto> GetItem(int productId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<ProductDto>> GetItems()
         {
             try
@@ -44,16 +39,6 @@ namespace SimpleVendingMachine.Web.Services
                 //Log exception
                 throw;
             }
-        }
-
-        public Task<IEnumerable<ProductDto>> GetItemsByCategory(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<ProductCategoryDto>> GetProductCategories()
-        {
-            throw new NotImplementedException();
         }
     }
 }
