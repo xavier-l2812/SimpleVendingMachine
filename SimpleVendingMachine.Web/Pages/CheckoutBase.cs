@@ -32,7 +32,7 @@ namespace SimpleVendingMachine.Web.Pages
             Account = new AccountDto
             {
                 Name = "Robert Leeson",
-                CardNumber = "4242 4242 4242 4242",
+                CardNumber = "4242424242424242",
                 VerificationCode = "321"
             };
         }

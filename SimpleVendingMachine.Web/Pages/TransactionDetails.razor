@@ -1,0 +1,47 @@
+﻿@page "/TransactionDetails/{Id:long}"
+@inherits TransactionDetailsBase
+
+@if((TransactionDetails is null || !TransactionDetails.Any()) && string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <DisplaySpinner />
+}
+else if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+}
+else
+{
+    <h3 class="mb-5">Transaction Details</h3>
+
+    <div class="row mb-5">
+        <div class="col-md-9">
+            @foreach (var tranDetail in TransactionDetails)
+            {
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <img src="@tranDetail.ImageURL" width="300" class="img-thumbnail">
+                    </div>
+                    <div class="col-md-8">
+                        <h5>@tranDetail.ProductName</h5>
+                        <span>
+                            Price: <b>@tranDetail.Price?.ToString("C")</b>&nbsp;
+                            Quantity: @tranDetail.Qty
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-3">
+            <h5>Summary</h5>
+            <div class="mt-2">
+                <div>Transaction ID: @SelectedTransaction.Id</div>
+                <div>Account Name: @SelectedTransaction.AccountName</div>
+                <div>Last 4 Digits of the Card Number: @SelectedTransaction.CardNumber.Substring(SelectedTransaction.CardNumber.Length - 4)</div>
+                <div>Total - (@SelectedTransaction.TotalQuantity items)&nbsp;<b>@SelectedTransaction.TotalPrice.ToString("C")</b></div>
+                <button class="btn btn-success" @onclick="PostRefundTran">
+                    Refund
+                </button>
+            </div>
+        </div>
+    </div>
+}

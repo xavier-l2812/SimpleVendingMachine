@@ -6,5 +6,6 @@ namespace SimpleVendingMachine.Web.Services.Contracts
     {
         Task<TransactionDto> PostTransaction(TransactionToAddDto transactionToAddDto);
         Task<List<TransactionDto>> GetTransactions(TransactionQuery transactionQuery);
+        Task<List<TransactionDetailDto>> GetTransactionDetails(long transactionId);
     }
 }

@@ -54,6 +54,21 @@ namespace SimpleVendingMachine.Web.Services
             }
         }
 
+        public async Task<List<TransactionDetailDto>> GetTransactionDetails(long transactionId)
+        {
+            var response = await httpClient.GetAsync($"api/Transaction/{transactionId}/TransactionDetails");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<List<TransactionDetailDto>>();
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status:{response.StatusCode}; Message: {errorMessage}");
+            }
+        }
+
         private string objectToQueryString(object obj)
         {
             var jsonStr = JsonConvert.SerializeObject(obj);

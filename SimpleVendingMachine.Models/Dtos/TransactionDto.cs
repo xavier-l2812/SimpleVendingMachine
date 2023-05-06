@@ -12,6 +12,7 @@ namespace SimpleVendingMachine.Models.Dtos
         public int AccountId { get; set; }
         public string AccountName { get; set; }
         public string CardNumber { get; set; }
+        public string VerificationCode { get; set; }
 
         public int TransactionTypeId { get; set; }
         public string TransactionTypeName { get; set; }

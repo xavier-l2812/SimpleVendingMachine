@@ -16,5 +16,10 @@ namespace SimpleVendingMachine.Web.Services.Contracts
         public void RemoveCartItem(int productId);
         public void ClearCartItems();
         public void UpdateCartItemQty(int productId, int qty);
+
+        public TransactionDto SelectedTransaction { get; }
+        public void SetSelectedTransaction(TransactionDto transaction);
+        public void ClearSelectedTransaction();
+        public event Action OnSelectedTransactionChange;
     }
 }

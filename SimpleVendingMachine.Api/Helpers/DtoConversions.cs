@@ -33,6 +33,7 @@ namespace SimpleVendingMachine.Api.Helpers
                 AccountId = transaction.AccountId,
                 AccountName = transaction.Account?.Name,
                 CardNumber = transaction.Account?.CardNumber,
+                VerificationCode = transaction.Account?.VerificationCode,
                 TransactionTypeId = transaction.TransactionTypeId,
                 TransactionTypeName = transaction.TransactonType?.Name
             };
@@ -51,8 +52,23 @@ namespace SimpleVendingMachine.Api.Helpers
                         AccountId = transaction.AccountId,
                         AccountName = transaction.Account?.Name,
                         CardNumber = transaction.Account?.CardNumber,
+                        VerificationCode = transaction.Account?.VerificationCode,
                         TransactionTypeId = transaction.TransactionTypeId,
                         TransactionTypeName = transaction.TransactonType?.Name
+                    }).ToList();
+        }
+
+        public static IEnumerable<TransactionDetailDto> ConvertToDto(this IEnumerable<TransactionDetail> transactionDetails)
+        {
+            return (from transactionDetail in transactionDetails
+                    select new TransactionDetailDto
+                    {
+                        TransactionId = transactionDetail.TransactionId,
+                        Qty = transactionDetail.Qty,
+                        ProductId = transactionDetail.ProductId,
+                        ProductName = transactionDetail.Product?.Name,
+                        Price = transactionDetail.Product?.Price,
+                        ImageURL = transactionDetail.Product?.ImageURL
                     }).ToList();
         }
     }

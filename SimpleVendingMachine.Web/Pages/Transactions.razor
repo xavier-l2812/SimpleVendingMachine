@@ -1,7 +1,7 @@
 ﻿@page "/Transactions"
 @inherits TransactionsBase
 
-@if (!Transactions.Any() && string.IsNullOrWhiteSpace(ErrorMessage))
+@if ((Transactions is null || !Transactions.Any()) && string.IsNullOrWhiteSpace(ErrorMessage))
 {
     <DisplaySpinner />
 }
@@ -15,13 +15,14 @@ else
 
     <div class="row mb-5">
         <p>Pagination has been implemented on the back-end. Currently, the front-end only displays the latest 20 records.</p>
+        <p>Please click the table row to see the transaction details if needed.</p>
     </div>
 
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Transaction Id</th>
-                <th>Created Datetime</th>
+                <th>Created Datetime (UTC)</th>
                 <th>Last 4 Digits of the Card</th>
                 <th>Cardholder Name</th>
                 <th>Total Price</th>
@@ -32,7 +33,7 @@ else
         <tbody>
             @foreach (var transaction in Transactions)
             {
-                <tr>
+                <tr class="table-row" @onclick="() => OpenTransactionDetails(transaction.Id)">
                     <td>@transaction.Id</td>
                     <td>@transaction.CreatedAt.ToString("MM/dd/yyyy HH:mm")</td>
                     <td>@transaction.CardNumber.Substring(@transaction.CardNumber.Length - 4)</td>

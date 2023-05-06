@@ -14,6 +14,7 @@ namespace SimpleVendingMachine.Web.Services
 
         public List<ProductDto> Products { get; protected set; }
         public List<CartItemVM> CartItems { get; protected set; }
+        public TransactionDto SelectedTransaction { get; protected set; }
 
         public decimal TotalPrice 
         {
@@ -75,8 +76,22 @@ namespace SimpleVendingMachine.Web.Services
             }
         }
 
-        public event Action OnProductsChange;
+        public void SetSelectedTransaction(TransactionDto transactionDto)
+        {
+            SelectedTransaction = transactionDto;
+            NotifySelectedTransactionChanged();
+        }
 
+        public void ClearSelectedTransaction()
+        {
+            SelectedTransaction = null;
+            NotifySelectedTransactionChanged();
+        }
+
+        public event Action OnProductsChange;
         public void NotifyProductsChanged() => OnProductsChange?.Invoke();
+
+        public event Action OnSelectedTransactionChange;
+        public void NotifySelectedTransactionChanged() => OnSelectedTransactionChange?.Invoke();
     }
 }

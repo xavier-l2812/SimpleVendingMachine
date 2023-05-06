@@ -12,8 +12,8 @@ using SimpleVendingMachine.Api.Data;
 namespace SimpleVendingMachine.Api.Migrations
 {
     [DbContext(typeof(VendingMachineDbContext))]
-    [Migration("20230504180719_AddForeignKeyToTransactionDetail")]
-    partial class AddForeignKeyToTransactionDetail
+    [Migration("20230506005140_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -156,14 +156,17 @@ namespace SimpleVendingMachine.Api.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("RelatedTransactionId")
                         .HasColumnType("bigint");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TotalQuantity")
+                        .HasColumnType("int");
 
                     b.Property<int>("TransactionTypeId")
                         .HasColumnType("int");
@@ -201,7 +204,7 @@ namespace SimpleVendingMachine.Api.Migrations
                     b.ToTable("TransactionDetails");
                 });
 
-            modelBuilder.Entity("SimpleVendingMachine.Api.Entities.TransactonType", b =>
+            modelBuilder.Entity("SimpleVendingMachine.Api.Entities.TransactionType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -248,7 +251,7 @@ namespace SimpleVendingMachine.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SimpleVendingMachine.Api.Entities.TransactonType", "TransactonType")
+                    b.HasOne("SimpleVendingMachine.Api.Entities.TransactionType", "TransactonType")
                         .WithMany()
                         .HasForeignKey("TransactionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
